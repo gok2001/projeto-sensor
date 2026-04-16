@@ -24,6 +24,4 @@ function atualizarTabela(data) {
     });
 }
 
-setInterval(atualizarTabela, 5000);
-
 carregarTabela();

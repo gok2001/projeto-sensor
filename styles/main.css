@@ -2,6 +2,7 @@
 
 @import url("header.css");
 @import url("dashboard.css");
+@import url("footer.css");
 
 * {
     margin: 0;
