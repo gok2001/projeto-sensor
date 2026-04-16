@@ -1,13 +1,14 @@
 async function carregarDados() {
     try {
-        const url = 'http://10.110.12.7:1880/getSensor';
+        const url = 'http://10.110.12.50:1880/getSensor';
         const response = await fetch(url);
         const data = await response.json();
 
         atualizarTemp(data);
         atualizarUmid(data);
         atualizarTabela(data);
-        atualizarGrafico(data);
+        atualizarGraficoTemp(data);
+        atualizarGraficoUmid(data);
     } catch (erro) {
         console.error('Erro:', erro);
     }
@@ -42,14 +43,12 @@ function atualizarTabela(data) {
     });
 }
 
-function atualizarGrafico(data) {
-    const grafico = document.getElementById('grafico-simples');
+function atualizarGraficoTemp(data) {
+    const grafico = document.getElementById('grafico-temp');
     const ctx = grafico.getContext('2d');
 
     const temperaturas = data.map(item => item.temperatura);
     temperaturas.reverse();
-    const umidades = data.map(item => item.Umidade);
-    umidades.reverse();
 
     const labels = temperaturas.map((_, index) => index + 1);
 
@@ -59,8 +58,27 @@ function atualizarGrafico(data) {
             labels: labels,
             datasets: [{
                 label: 'Temperatura',
-                data: temperaturas
-            }, {
+                data: temperaturas,
+                borderColor: '#E63946'
+            }]
+        }
+    });
+}
+
+function atualizarGraficoUmid(data) {
+    const grafico = document.getElementById('grafico-umid');
+    const ctx = grafico.getContext('2d');
+
+    const umidades = data.map(item => item.umidade);
+    umidades.reverse();
+
+    const labels = umidades.map((_, index) => index + 1);
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
                 label: 'Umidade',
                 data: umidades
             }]

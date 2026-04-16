@@ -26,10 +26,6 @@
     background-color: var(--cor-bg);
     padding: 20px;
     border-radius: 15px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .titulo-section {
@@ -49,4 +45,16 @@ th, td {
     grid-area: 2 / 2 / 3 / 3;
     background-color: var(--cor-bg);
     padding: 20px;
+
+    display: flex;
+}
+
+#grafico-temp {
+    max-width: 600px;
+    max-height: 400px;
+}
+
+#grafico-umid {
+    max-width: 600px;
+    max-height: 400px;
 }
