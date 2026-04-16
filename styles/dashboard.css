@@ -1,0 +1,31 @@
+.main {
+    background-color: var(--cor-primaria);
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    gap: 50px;
+    padding: 50px;
+}
+
+.temperatura {
+    grid-area: 1 / 1 / 2 / 2;
+    background-color: var(--cor-bg);
+    padding: 20px;
+}
+
+.umidade {
+    grid-area: 1 / 2 / 2 / 3;
+    background-color: var(--cor-bg);
+    padding: 20px;
+}
+
+.tabela {
+    grid-area: 2 / 1 / 3 / 2;
+    background-color: var(--cor-bg);
+    padding: 20px;
+}
+
+.grafico {
+    grid-area: 2 / 2 / 3 / 3;
+    background-color: var(--cor-bg);
+    padding: 20px;
+}
