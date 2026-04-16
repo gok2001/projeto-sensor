@@ -7,13 +7,13 @@
     padding: 50px;
 }
 
-.temperatura {
+#temperatura {
     grid-area: 1 / 1 / 2 / 2;
     background-color: var(--cor-bg);
     padding: 20px;
 }
 
-.umidade {
+#umidade {
     grid-area: 1 / 2 / 2 / 3;
     background-color: var(--cor-bg);
     padding: 20px;
