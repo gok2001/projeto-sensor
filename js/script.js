@@ -25,7 +25,7 @@ function atualizarUmid(data) {
     const p = document.querySelector('#umidade p');
     p.innerHTML = '';
 
-    p.innerHTML = `${data[0].Umidade} %`;
+    p.innerHTML = `${data[0].umidade} %`;
 }
 
 function atualizarTabela(data) {
@@ -36,7 +36,7 @@ function atualizarTabela(data) {
         const linhaTabela = `
             <tr>
                 <td>${item.temperatura}</td>
-                <td>${item.Umidade}</td>
+                <td>${item.umidade}</td>
             </tr>
         `;
         tbody.innerHTML += linhaTabela;
@@ -46,20 +46,32 @@ function atualizarTabela(data) {
 function atualizarGraficoTemp(data) {
     const grafico = document.getElementById('grafico-temp');
     const ctx = grafico.getContext('2d');
-
+    
     const temperaturas = data.map(item => item.temperatura);
     temperaturas.reverse();
 
-    const labels = temperaturas.map((_, index) => index + 1);
+    const dataHora = data.map(item => {
+        const d = new Date(item.datahora);
+        return d.toLocaleString('pt-BR', {
+            timeZone: 'America/Sao_Paulo',
+            day: '2-digit',
+            month: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    });
+    dataHora.reverse();
 
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: dataHora,
             datasets: [{
                 label: 'Temperatura',
                 data: temperaturas,
-                borderColor: '#E63946'
+                borderColor: '#FF5A5F',
+                backgroundColor: '#FF5A5F'
             }]
         }
     });
@@ -72,15 +84,28 @@ function atualizarGraficoUmid(data) {
     const umidades = data.map(item => item.umidade);
     umidades.reverse();
 
-    const labels = umidades.map((_, index) => index + 1);
-
+    const dataHora = data.map(item => {
+        const d = new Date(item.datahora);
+        return d.toLocaleString('pt-BR', {
+            timeZone: 'America/Sao_Paulo',
+            day: '2-digit',
+            month: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    });
+    dataHora.reverse();
+    
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: dataHora,
             datasets: [{
                 label: 'Umidade',
-                data: umidades
+                data: umidades,
+                borderColor: '#4DA3FF',
+                backgroundColor: '#4DA3FF'
             }]
         }
     });
