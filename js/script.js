@@ -7,6 +7,7 @@ async function carregarDados() {
         atualizarTemp(data);
         atualizarUmid(data);
         atualizarTabela(data);
+        atualizarGrafico(data);
     } catch (erro) {
         console.error('Erro:', erro);
     }
@@ -38,6 +39,32 @@ function atualizarTabela(data) {
             </tr>
         `;
         tbody.innerHTML += linhaTabela;
+    });
+}
+
+function atualizarGrafico(data) {
+    const grafico = document.getElementById('grafico-simples');
+    const ctx = grafico.getContext('2d');
+
+    const temperaturas = data.map(item => item.temperatura);
+    temperaturas.reverse();
+    const umidades = data.map(item => item.Umidade);
+    umidades.reverse();
+
+    const labels = temperaturas.map((_, index) => index + 1);
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Temperatura',
+                data: temperaturas
+            }, {
+                label: 'Umidade',
+                data: umidades
+            }]
+        }
     });
 }
 
