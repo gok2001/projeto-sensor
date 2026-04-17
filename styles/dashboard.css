@@ -5,12 +5,15 @@
     padding: 30px;
 }
 
-
 .card {
     background: var(--cor-card);
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.titulo-card {
+    font-size: 28px;
 }
 
 .medidas {
@@ -20,13 +23,15 @@
 }
 
 .bloco {
-    height: 100%;
-    text-align: center;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .valor {
-    margin-top: 10px;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .termometro {
@@ -36,18 +41,14 @@
     border-radius: 20px;
     overflow: hidden;
     margin: auto;
+    position: relative;
 }
 
 .fill {
     width: 100%;
-    height: 50%;
     position: absolute;
     bottom: 0;
-    transition: 0.5s;
-}
-
-.titulo-umid {
-    margin-bottom: 30px;
+    transition: height 0.5s;
 }
 
 .gota {
@@ -60,22 +61,36 @@
     margin: auto;
 }
 
+.tabela {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
 th, td {
-    border: 1px solid var(--cor-contraste);
+    border: 1px solid var(--cor-texto);
     padding: 10px;
+    text-align: center;
 }
 
 .graficos {
     grid-column: span 2;
-    display: grid;
-    gap: 20px;
+    height: 60vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .grafico-box {
-    text-align: center;
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }

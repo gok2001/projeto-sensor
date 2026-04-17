@@ -1,4 +1,4 @@
-const URL = 'http://10.110.12.50:1880/getSensor';
+const URL = 'http://10.110.12.77:1880/getSensor';
 
 let chartTemp, chartUmid;
 
@@ -26,10 +26,15 @@ function atualizarTemp(data) {
     fill.style.height = (valor / 50) * 100 + '%';
     document.getElementById("temp").textContent = valor + "°C";
 
-    if (valor < 15) fill.style.background = "#3B82F6";
-    else if (valor < 25) fill.style.background = "#22C55E";
-    else if (valor < 35) fill.style.background = "#F59E0B";
-    else fill.style.background = "#EF4444";
+    if (valor < 15) {
+        fill.style.background = "#3B82F6";
+    } else if (valor < 25) {
+        fill.style.background = "#22C55E";
+    } else if (valor < 35) {
+        fill.style.background = "#F59E0B";
+    } else {
+        fill.style.background = "#EF4444";
+    }
 }
 
 /* UMIDADE */
@@ -40,9 +45,13 @@ function atualizarUmid(data) {
     fill.style.height = valor + '%';
     document.getElementById("umid").textContent = valor + "%";
 
-    if (valor < 30) fill.style.background = "#FB923C";
-    else if (valor < 60) fill.style.background = "#14B8A6";
-    else fill.style.background = "#60A5FA";
+    if (valor < 30) {
+        fill.style.background = "#FB923C";
+    } else if (valor < 60) {
+        fill.style.background = "#14B8A6";
+    } else {
+        fill.style.background = "#60A5FA";
+    } 
 }
 
 /* TABELA */
@@ -66,7 +75,8 @@ function atualizarTabela(data) {
 function formatarDataHora(datahora) {
     return new Date(datahora).toLocaleString("pt-BR", {
         hour: "2-digit",
-        minute: "2-digit"
+        minute: "2-digit",
+        second: "2-digit"
     });
 }
 
