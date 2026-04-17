@@ -20,6 +20,7 @@
 }
 
 .bloco {
+    height: 100%;
     text-align: center;
 }
 
@@ -45,21 +46,18 @@
     transition: 0.5s;
 }
 
-.gota {
-    width: 80px;
-    height: 120px;
-    background: #1E293B;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: relative;
-    overflow: hidden;
-    margin: auto;
+.titulo-umid {
+    margin-bottom: 30px;
 }
 
-#umid {
-    position: absolute;
-    width: 100%;
-    top: 40%;
-    text-align: center;
+.gota {
+    width: 100px;
+    height: 100px;
+    background: #1E293B;
+    border-radius: 50% 0 50% 50%;
+    transform: rotate(-45deg);
+    overflow: hidden;
+    margin: auto;
 }
 
 table {

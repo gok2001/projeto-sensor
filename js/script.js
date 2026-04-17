@@ -63,7 +63,7 @@ function atualizarTabela(data) {
 }
 
 /* DATA */
-function formatar(datahora) {
+function formatarDataHora(datahora) {
     return new Date(datahora).toLocaleString("pt-BR", {
         hour: "2-digit",
         minute: "2-digit"
@@ -75,7 +75,7 @@ function atualizarGraficoTemp(data) {
     const ctx = document.getElementById("grafico-temp");
 
     const valores = data.map(d => d.temperatura).reverse();
-    const labels = data.map(d => formatar(d.datahora)).reverse();
+    const labels = data.map(d => formatarDataHora(d.datahora)).reverse();
 
     if (chartTemp) {
         chartTemp.data.labels = labels;
@@ -103,7 +103,7 @@ function atualizarGraficoUmid(data) {
     const ctx = document.getElementById("grafico-umid");
 
     const valores = data.map(d => d.umidade).reverse();
-    const labels = data.map(d => formatar(d.datahora)).reverse();
+    const labels = data.map(d => formatarDataHora(d.datahora)).reverse();
 
     if (chartUmid) {
         chartUmid.data.labels = labels;
@@ -126,6 +126,5 @@ function atualizarGraficoUmid(data) {
     });
 }
 
-/* INIT */
 carregarDados();
 setInterval(carregarDados, 3000);
