@@ -9,7 +9,7 @@ CREATE TABLE leitura (
     id INT PRIMARY KEY AUTO_INCREMENT,
     datahora DATETIME,
     temperatura FLOAT,
-    Umidade FLOAT
+    umidade FLOAT
 );
 
 -- Tabela usuario
