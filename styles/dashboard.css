@@ -1,5 +1,8 @@
 .main {
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-bg);
+
+    color: var(--cor-contraste);
+
     height: 100vh;
 
     display: grid;
@@ -11,7 +14,7 @@
 #medidas {
     grid-area: 1 / 1 / 2 / 2;
 
-    background-color: var(--cor-bg);
+    background-color: var(--cor-primaria);
     padding: 20px;
     border-radius: 15px;
 
@@ -44,7 +47,7 @@
 
     height: 520px;
 
-    background-color: var(--cor-bg);
+    background-color: var(--cor-primaria);
     padding: 20px;
     border-radius: 15px;
 
@@ -62,13 +65,13 @@
 }
 
 th, td {
-    border: 1px solid black;
+    border: 1px solid var(--cor-contraste);
     padding: 10px;
 }
 
 .grafico {
     grid-area: 1 / 2 / 3 / 3;
-    background-color: var(--cor-bg);
+    background-color: var(--cor-primaria);
 
     height: 800px;
     width: 800px;

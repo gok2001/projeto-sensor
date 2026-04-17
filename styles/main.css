@@ -12,30 +12,29 @@
 
 :root {
     /* Principal */
-    --cor-primaria: #1E3A5F;
-    --cor-secundaria: #2C7BE5;
+    --cor-primaria: #0F172A;
+    --cor-secundaria: #3B82F6;
 
-    --cor-bg: #F5F7FA;
+    --cor-bg: #020617;
+    
+    --cor-coringa: #64748B;
+    
+    --cor-contraste: #E2E8F0;
 
-    --cor-coringa: #8A94A6;
-
-    --cor-contraste: #FFFFFF;
-
-    /* Temperatura */
-    --cor-frio: #4DA3FF;
-    --cor-ameno: #6EDC8C;
-    --cor-quente: #FFC857;
-    --cor-muito-quente: #FF5A5F;
+    /* Temperatura  */
+    --cor-frio: #3B82F6;
+    --cor-ameno: #22C55E;
+    --cor-quente: #F59E0B;
+    --cor-muito-quente: #EF4444;
 
     /* Umidade */
-    --cor-umidade-baixa: #F4A261;
-    --cor-umidade-ideal: #2EC4B6;
-    --cor-umidade-alta: #3A86FF;
+    --cor-umidade-baixa: #FB923C;
+    --cor-umidade-ideal: #14B8A6;
+    --cor-umidade-alta: #60A5FA;
 
     /* Auxiliares */
-    --cor-sucesso: #2EC4B6;
-    --cor-atencao: #FFC857;
-    --cor-critico: #E63946;
-    --cor-neutra: #457B9D;
-
+    --cor-sucesso: #22C55E;
+    --cor-atencao: #F59E0B;
+    --cor-critico: #EF4444;
+    --cor-neutra: #475569;
 }
