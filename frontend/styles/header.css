@@ -15,7 +15,7 @@
 }
 
 .login-icon {
-    background-image: url(../assets/login-icon.svg);
+    background-image: url(../../assets/login-icon.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
