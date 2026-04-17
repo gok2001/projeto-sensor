@@ -18,14 +18,14 @@ function atualizarTemp(data) {
     let porcentagem = (data[0].temperatura / 50) * 100;
     document.getElementById("tempFill").style.height = porcentagem + '%';
 
-    const p = document.querySelector('#temperatura p');
+    const p = document.querySelector('#temp');
     p.innerHTML = '';
 
     p.innerHTML = `${data[0].temperatura} °C`;
 }
 
 function atualizarUmid(data) {
-    const p = document.querySelector('#umidade p');
+    const p = document.querySelector('#umid');
     p.innerHTML = '';
 
     p.innerHTML = `${data[0].umidade} %`;
