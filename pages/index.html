@@ -10,25 +10,44 @@
 <body>
     <header class="header">
         <h1 class="titulo">Sensor</h1>
-        <a href="" class="login-link">
+
+        <a href="#" class="login-link">
             <div class="login-icon"></div>
             Login
         </a>
     </header>
 
-    <main class="main">
-        <section id="medidas">
-            <div class="termometro">
-                <div class="thermo-fill" id="tempFill"></div>
-                <p id="temp"></p>
+    <main class="container">
+
+        <!-- MEDIDAS -->
+        <section class="card medidas">
+
+            <div class="bloco">
+                <h2>Temperatura</h2>
+
+                <div class="termometro">
+                    <div id="tempFill" class="fill"></div>
+                </div>
+
+                <p id="temp" class="valor"></p>
             </div>
-            <div class="umidade">
+
+            <div class="bloco">
+                <h2>Umidade</h2>
+
+                <div class="gota">
+                    <div id="umidFill" class="fill"></div>
+                </div>
+
                 <p id="umid"></p>
             </div>
+
         </section>
 
-        <section class="tabela">
+        <!-- TABELA -->
+        <section class="card tabela">
             <h2 class="titulo-section">Últimos registros</h2>
+
             <table id="tabela-simples">
                 <thead>
                     <tr>
@@ -36,24 +55,28 @@
                         <th>Umidade (%)</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="tabela-body"></tbody>
             </table>
         </section>
 
-        <section class="grafico">
-            <div class="grafico-temp">
+        <!-- GRÁFICOS -->
+        <section class="card graficos">
+
+            <div class="grafico-box">
                 <h2>Temperatura</h2>
                 <canvas id="grafico-temp"></canvas>
             </div>
-            <div class="grafico-umid">
+
+            <div class="grafico-box">
                 <h2>Umidade</h2>
                 <canvas id="grafico-umid"></canvas>
             </div>
+
         </section>
     </main>
 
     <footer class="footer">
-        <p>&copy; Todos os direitos reservados - 2026</p>
+        <p>&copy; 2026 - Dashboard Sensor</p>
     </footer>
 
     <script src="../js/script.js"></script>

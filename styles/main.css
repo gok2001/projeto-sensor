@@ -11,30 +11,15 @@
 }
 
 :root {
-    /* Principal */
-    --cor-primaria: #0F172A;
-    --cor-secundaria: #3B82F6;
-
     --cor-bg: #020617;
-    
-    --cor-coringa: #64748B;
-    
-    --cor-contraste: #E2E8F0;
+    --cor-card: #0F172A;
+    --cor-secundaria: #3B82F6;
+    --cor-texto: #E2E8F0;
+    --cor-borda: #1E293B;
+}
 
-    /* Temperatura  */
-    --cor-frio: #3B82F6;
-    --cor-ameno: #22C55E;
-    --cor-quente: #F59E0B;
-    --cor-muito-quente: #EF4444;
-
-    /* Umidade */
-    --cor-umidade-baixa: #FB923C;
-    --cor-umidade-ideal: #14B8A6;
-    --cor-umidade-alta: #60A5FA;
-
-    /* Auxiliares */
-    --cor-sucesso: #22C55E;
-    --cor-atencao: #F59E0B;
-    --cor-critico: #EF4444;
-    --cor-neutra: #475569;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--cor-bg);
+    color: var(--cor-texto);
 }

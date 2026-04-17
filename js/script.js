@@ -1,117 +1,131 @@
+const URL = 'http://10.110.12.50:1880/getSensor';
+
+let chartTemp, chartUmid;
+
 async function carregarDados() {
     try {
-        const url = 'http://10.110.12.50:1880/getSensor';
-        const response = await fetch(url);
-        const data = await response.json();
+        const res = await fetch(URL);
+        const data = await res.json();
 
         atualizarTemp(data);
         atualizarUmid(data);
         atualizarTabela(data);
         atualizarGraficoTemp(data);
         atualizarGraficoUmid(data);
-    } catch (erro) {
-        console.error('Erro:', erro);
+
+    } catch (e) {
+        console.error(e);
     }
 }
 
+/* TEMPERATURA */
 function atualizarTemp(data) {
-    let porcentagem = (data[0].temperatura / 50) * 100;
-    document.getElementById("tempFill").style.height = porcentagem + '%';
+    const valor = data[0].temperatura;
+    const fill = document.getElementById("tempFill");
 
-    const p = document.querySelector('#temp');
-    p.innerHTML = '';
+    fill.style.height = (valor / 50) * 100 + '%';
+    document.getElementById("temp").textContent = valor + "°C";
 
-    p.innerHTML = `${data[0].temperatura} °C`;
+    if (valor < 15) fill.style.background = "#3B82F6";
+    else if (valor < 25) fill.style.background = "#22C55E";
+    else if (valor < 35) fill.style.background = "#F59E0B";
+    else fill.style.background = "#EF4444";
 }
 
+/* UMIDADE */
 function atualizarUmid(data) {
-    const p = document.querySelector('#umid');
-    p.innerHTML = '';
+    const valor = data[0].umidade;
+    const fill = document.getElementById("umidFill");
 
-    p.innerHTML = `${data[0].umidade} %`;
+    fill.style.height = valor + '%';
+    document.getElementById("umid").textContent = valor + "%";
+
+    if (valor < 30) fill.style.background = "#FB923C";
+    else if (valor < 60) fill.style.background = "#14B8A6";
+    else fill.style.background = "#60A5FA";
 }
 
+/* TABELA */
 function atualizarTabela(data) {
-    const tbody = document.querySelector('#tabela-simples tbody');
-    tbody.innerHTML = '';
+    const tbody = document.getElementById("tabela-body");
+    tbody.innerHTML = "";
 
     data.forEach(item => {
-        const linhaTabela = `
-            <tr>
-                <td>${item.temperatura}</td>
-                <td>${item.umidade}</td>
-            </tr>
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${item.temperatura}</td>
+            <td>${item.umidade}</td>
         `;
-        tbody.innerHTML += linhaTabela;
+
+        tbody.appendChild(tr);
     });
 }
 
+/* DATA */
+function formatar(datahora) {
+    return new Date(datahora).toLocaleString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+/* GRÁFICO TEMP */
 function atualizarGraficoTemp(data) {
-    const grafico = document.getElementById('grafico-temp');
-    const ctx = grafico.getContext('2d');
-    
-    const temperaturas = data.map(item => item.temperatura);
-    temperaturas.reverse();
+    const ctx = document.getElementById("grafico-temp");
 
-    const dataHora = data.map(item => {
-        const d = new Date(item.datahora);
-        return d.toLocaleString('pt-BR', {
-            timeZone: 'America/Sao_Paulo',
-            day: '2-digit',
-            month: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-    });
-    dataHora.reverse();
+    const valores = data.map(d => d.temperatura).reverse();
+    const labels = data.map(d => formatar(d.datahora)).reverse();
 
-    new Chart(ctx, {
-        type: 'line',
+    if (chartTemp) {
+        chartTemp.data.labels = labels;
+        chartTemp.data.datasets[0].data = valores;
+        chartTemp.update();
+        return;
+    }
+
+    chartTemp = new Chart(ctx, {
+        type: "line",
         data: {
-            labels: dataHora,
+            labels,
             datasets: [{
-                label: 'Temperatura',
-                data: temperaturas,
-                borderColor: '#FF5A5F',
-                backgroundColor: '#FF5A5F'
+                label: "Temperatura",
+                data: valores,
+                borderColor: "#FF5A5F",
+                tension: 0.3
             }]
         }
     });
 }
 
+/* GRÁFICO UMID */
 function atualizarGraficoUmid(data) {
-    const grafico = document.getElementById('grafico-umid');
-    const ctx = grafico.getContext('2d');
+    const ctx = document.getElementById("grafico-umid");
 
-    const umidades = data.map(item => item.umidade);
-    umidades.reverse();
+    const valores = data.map(d => d.umidade).reverse();
+    const labels = data.map(d => formatar(d.datahora)).reverse();
 
-    const dataHora = data.map(item => {
-        const d = new Date(item.datahora);
-        return d.toLocaleString('pt-BR', {
-            timeZone: 'America/Sao_Paulo',
-            day: '2-digit',
-            month: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        });
-    });
-    dataHora.reverse();
-    
-    new Chart(ctx, {
-        type: 'line',
+    if (chartUmid) {
+        chartUmid.data.labels = labels;
+        chartUmid.data.datasets[0].data = valores;
+        chartUmid.update();
+        return;
+    }
+
+    chartUmid = new Chart(ctx, {
+        type: "line",
         data: {
-            labels: dataHora,
+            labels,
             datasets: [{
-                label: 'Umidade',
-                data: umidades,
-                borderColor: '#4DA3FF',
-                backgroundColor: '#4DA3FF'
+                label: "Umidade",
+                data: valores,
+                borderColor: "#4DA3FF",
+                tension: 0.3
             }]
         }
     });
 }
 
+/* INIT */
 carregarDados();
+setInterval(carregarDados, 3000);
