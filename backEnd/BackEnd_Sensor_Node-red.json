@@ -109,7 +109,7 @@
         "type": "function",
         "z": "7af0a913d5500150",
         "name": "insertLeitura",
-        "func": "let now = new Date();\nlet temperatura = msg.payload.temperatura;\nlet umidade = msg.payload.umidade;\n\nconsole.log(now);\n\nlet datahora = now.toISOString().slice(0, 19).replace('T', ' ');\n\n// protege contra SQL Injection com placeholders\nmsg.topic = \"insert into leitura (datahora, temperatura, umidade) values (?, ?, ?)\";\nmsg.payload = [datahora, temperatura, umidade];\n\nreturn msg;",
+        "func": "//let now = new Date();\nlet temperatura = msg.payload.temperatura;\nlet umidade = msg.payload.umidade;\n\n//console.log(now);\n\n//let datahora = now.toISOString().slice(0, 19).replace('T', ' ');\n\n// protege contra SQL Injection com placeholders\nmsg.topic = \"insert into leitura (datahora, temperatura, umidade) values (NOW(), ?, ?)\";\nmsg.payload = [temperatura, umidade];\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -221,14 +221,14 @@
         "type": "debug",
         "z": "7af0a913d5500150",
         "name": "debug 1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 440,
+        "x": 580,
         "y": 220,
         "wires": []
     },
@@ -244,6 +244,71 @@
             [
                 "4996af715e13d4cd",
                 "7ffc9822b96b044b"
+            ]
+        ]
+    },
+    {
+        "id": "bd436b4185d0d264",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "function 1",
+        "func": "msg.payload = {\n    utc: new Date().toISOString(),\n    local: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),\n    offset_horas: new Date().getTimezoneOffset() / 60\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 140,
+        "wires": [
+            [
+                "e9944d79b36855e1"
+            ]
+        ]
+    },
+    {
+        "id": "e9944d79b36855e1",
+        "type": "debug",
+        "z": "7af0a913d5500150",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ffedc0cdbdd9063f",
+        "type": "inject",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 600,
+        "y": 140,
+        "wires": [
+            [
+                "bd436b4185d0d264"
             ]
         ]
     },
@@ -278,7 +343,7 @@
         "responsetimeout": 10000
     },
     {
-        "id": "5ae019419d6cf0c4",
+        "id": "2b7b77d3e5e7fcee",
         "type": "global-config",
         "env": [],
         "modules": {
