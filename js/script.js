@@ -15,6 +15,9 @@ async function carregarDados() {
 }
 
 function atualizarTemp(data) {
+    let porcentagem = (data[0].temperatura / 50) * 100;
+    document.getElementById("tempFill").style.height = porcentagem + '%';
+
     const p = document.querySelector('#temperatura p');
     p.innerHTML = '';
 
