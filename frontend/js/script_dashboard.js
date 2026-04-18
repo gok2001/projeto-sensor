@@ -4,8 +4,8 @@ let chartTemp, chartUmid;
 
 async function carregarDados() {
     try {
-        const res = await fetch(URL);
-        const data = await res.json();
+        const response = await fetch(URL);
+        const data = await response.json();
 
         atualizarTemp(data);
         atualizarUmid(data);
@@ -18,7 +18,6 @@ async function carregarDados() {
     }
 }
 
-/* TEMPERATURA */
 function atualizarTemp(data) {
     const valor = data[0].temperatura;
     const fill = document.getElementById("tempFill");
@@ -37,7 +36,6 @@ function atualizarTemp(data) {
     }
 }
 
-/* UMIDADE */
 function atualizarUmid(data) {
     const valor = data[0].umidade;
     const fill = document.getElementById("umidFill");
@@ -54,7 +52,6 @@ function atualizarUmid(data) {
     } 
 }
 
-/* TABELA */
 function atualizarTabela(data) {
     const tbody = document.getElementById("tabela-body");
     tbody.innerHTML = "";
@@ -71,7 +68,6 @@ function atualizarTabela(data) {
     });
 }
 
-/* DATA */
 function formatarDataHora(datahora) {
     return new Date(datahora).toLocaleString("pt-BR", {
         hour: "2-digit",
@@ -80,7 +76,6 @@ function formatarDataHora(datahora) {
     });
 }
 
-/* GRÁFICO TEMP */
 function atualizarGraficoTemp(data) {
     const ctx = document.getElementById("grafico-temp");
 

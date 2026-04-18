@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor</title>
+    <title>SENSOR DHT11</title>
     <link rel="stylesheet" href="../styles/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -18,7 +18,31 @@
     </header>
 
     <main class="container">
-        
+
+        <section class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Temperatura</th>
+                        <th>Umidade</th>
+                        <th>Data-Hora</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-body"></tbody>
+            </table>
+
+            <div>
+                <button onclick="voltar()">Anterior</button>
+                <span id="pagina-info"></span>
+                <button onclick="avancar()">Próximo</button>
+            </div>
+        </section>
+
+        <section class="card">
+
+        </section>
+
     </main>
 
     <footer class="footer">
