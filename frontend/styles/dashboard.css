@@ -80,3 +80,21 @@ th, td {
     justify-content: space-around;
     align-items: center;
 }
+
+.btn {
+    color: var(--cor-texto);
+    text-decoration: none;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+
+    background-color: var(--cor-secundaria);
+    padding: 10px;
+    border-radius: 10px;
+
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}

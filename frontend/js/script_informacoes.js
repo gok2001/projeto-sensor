@@ -1,4 +1,4 @@
-const URL = 'http://10.110.12.77:1880/getSensor';
+const URL = 'http://10.110.12.10:1880/getSensor';
 
 let paginaAtual = 1;
 const limite = 10;

@@ -1,4 +1,4 @@
-const URL = 'http://10.110.12.77:1880/getSensor';
+const URL = 'http://10.110.12.10:1880/getSensor';
 
 let chartTemp, chartUmid;
 
@@ -13,8 +13,8 @@ async function carregarDados() {
         atualizarGraficoTemp(data);
         atualizarGraficoUmid(data);
 
-    } catch (e) {
-        console.error(e);
+    } catch (erro) {
+        console.error(erro);
     }
 }
 
