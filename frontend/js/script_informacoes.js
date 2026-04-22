@@ -1,4 +1,4 @@
-const URL = 'http://10.110.12.10:1880/getSensor';
+const URL = 'http://10.110.12.10:1880/getDadosCompletos';
 
 let paginaAtual = 1;
 const limite = 10;
@@ -9,31 +9,27 @@ async function carregarDados() {
         const data = await response.json();
 
         preencherTabela(data);
+
     } catch (erro) {
-        console.log(erro)
+        console.error(erro)
     }
-    fetch(`/dados?pagina=${paginaAtual}`)
-        .then(res => res.json())
-        .then(dados => {
-            preencherTabela(dados);
-            atualizarInfo();
-    });
 }
 
-function preencherTabela(dados) {
-    const tbody = document.getElementById('tabela-body');
-    tbody.innerHTML = '';
+function preencherTabela(data) {
+    const tbody = document.getElementById("tabela-body");
+    tbody.innerHTML = "";
 
-    dados.forEach(item => {
-        const linha = `
-            <tr>
-                <td>${item.id}</td>
-                <td>${item.temperatura}</td>
-                <td>${item.umidade}</td>
-                <td>${item.datahora}</td>
-            </tr>
+    data.forEach(item => {
+        const tr = document.createElement("tr");
+        
+        tr.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.temperatura}</td>
+            <td>${item.umidade}</td>
+            <td>${item.datahora}</td>
         `;
-        tbody.innerHTML += linha;
+
+        tbody.appendChild(tr);
     });
 }
 
@@ -49,8 +45,5 @@ function voltar() {
     }
 }
 
-function atualizarInfo() {
-    document.getElementById('pagina-info').innerText = `Página ${paginaAtual}`;
-}
-
 carregarDados();
+setInterval(carregarDados, 2000);

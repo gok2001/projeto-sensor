@@ -1,4 +1,4 @@
-const URL = 'http://10.110.12.10:1880/getSensor';
+const URL = 'http://10.110.12.10:1880/getLeituraUltimosDez';
 
 let chartTemp, chartUmid;
 
@@ -132,4 +132,4 @@ function atualizarGraficoUmid(data) {
 }
 
 carregarDados();
-setInterval(carregarDados, 3000);
+setInterval(carregarDados, 2000);
