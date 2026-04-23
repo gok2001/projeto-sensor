@@ -20,12 +20,13 @@ function preencherTabela(data) {
     const tbody = document.getElementById("tabela-body");
     tbody.innerHTML = "";
 
-    data.forEach((item, index) => {
+    const inicio = (paginaAtual - 1) * limite;
+    const fim = inicio + limite;
+
+    const dadosPaginados = data.slice(inicio, fim);
+
+    dadosPaginados.forEach(item => {
         const tr = document.createElement("tr");
-        
-        if (index === limite) {
-            return;
-        }
 
         tr.innerHTML = `
             <td>${item.id}</td>
