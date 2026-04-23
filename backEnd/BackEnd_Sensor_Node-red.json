@@ -1,0 +1,393 @@
+[
+    {
+        "id": "7af0a913d5500150",
+        "type": "tab",
+        "label": "projeto-sensor",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b588dafc04b0ac85",
+        "type": "http in",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "url": "/getLeituraUltimosDez",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 650,
+        "y": 300,
+        "wires": [
+            [
+                "dfbe665dd77fba19"
+            ]
+        ]
+    },
+    {
+        "id": "d01077d6c7ce54ba",
+        "type": "http in",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "url": "/addLeitura",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 380,
+        "y": 480,
+        "wires": [
+            [
+                "7ffc9822b96b044b"
+            ]
+        ]
+    },
+    {
+        "id": "817ea51dd1ae0367",
+        "type": "http in",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "url": "/getUsuario",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 620,
+        "y": 840,
+        "wires": [
+            [
+                "744f58bc45070ae5"
+            ]
+        ]
+    },
+    {
+        "id": "819411eaaa0540a6",
+        "type": "http in",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "url": "/addUsuario",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 630,
+        "y": 960,
+        "wires": [
+            [
+                "9b02ed6df6a41bc1"
+            ]
+        ]
+    },
+    {
+        "id": "fe2c760baadd7d97",
+        "type": "http response",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1470,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "050fdbc422bf9f7a",
+        "type": "mysql",
+        "z": "7af0a913d5500150",
+        "mydb": "a01237eff393b183",
+        "name": "",
+        "x": 1270,
+        "y": 640,
+        "wires": [
+            [
+                "fe2c760baadd7d97"
+            ]
+        ]
+    },
+    {
+        "id": "0d8cd6320bad6167",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "insertLeitura",
+        "func": "//let now = new Date();\nlet temperatura = msg.payload.temperatura;\nlet umidade = msg.payload.umidade;\n\n//console.log(now);\n\n//let datahora = now.toISOString().slice(0, 19).replace('T', ' ');\n\n// protege contra SQL Injection com placeholders\nmsg.topic = \"insert into leitura (datahora, temperatura, umidade) values (NOW(), ?, ?)\";\nmsg.payload = [temperatura, umidade];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 420,
+        "wires": [
+            [
+                "050fdbc422bf9f7a"
+            ]
+        ]
+    },
+    {
+        "id": "744f58bc45070ae5",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "selectUsuario",
+        "func": "msg.topic = \"select * from usuario\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 840,
+        "wires": [
+            [
+                "050fdbc422bf9f7a"
+            ]
+        ]
+    },
+    {
+        "id": "1c6ba44f484bb4cd",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "insertUsuario",
+        "func": "let nome = msg.payload.nome;\nlet username = msg.payload.username;\nlet senha = msg.payload.senha;\n\nmsg.topic = \"insert into usuario (nome, username, senha) value (?, ?, ?)\";\nmsg.payload = [nome, username, senha];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 960,
+        "wires": [
+            [
+                "050fdbc422bf9f7a"
+            ]
+        ]
+    },
+    {
+        "id": "dfbe665dd77fba19",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "selectLeituraDezUltimos",
+        "func": "msg.topic = \"select * from leitura order by id desc limit 10\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 300,
+        "wires": [
+            [
+                "050fdbc422bf9f7a"
+            ]
+        ]
+    },
+    {
+        "id": "7ffc9822b96b044b",
+        "type": "json",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 730,
+        "y": 420,
+        "wires": [
+            [
+                "0d8cd6320bad6167"
+            ]
+        ]
+    },
+    {
+        "id": "9b02ed6df6a41bc1",
+        "type": "json",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 810,
+        "y": 960,
+        "wires": [
+            [
+                "1c6ba44f484bb4cd"
+            ]
+        ]
+    },
+    {
+        "id": "4996af715e13d4cd",
+        "type": "debug",
+        "z": "7af0a913d5500150",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 200,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9d3763267e6a922b",
+        "type": "serial in",
+        "z": "7af0a913d5500150",
+        "name": "Arduino",
+        "serial": "e2240e421b689e36",
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "4996af715e13d4cd",
+                "7ffc9822b96b044b"
+            ]
+        ]
+    },
+    {
+        "id": "bd436b4185d0d264",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "function 1",
+        "func": "msg.payload = {\n    utc: new Date().toISOString(),\n    local: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),\n    offset_horas: new Date().getTimezoneOffset() / 60\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 100,
+        "wires": [
+            [
+                "e9944d79b36855e1"
+            ]
+        ]
+    },
+    {
+        "id": "e9944d79b36855e1",
+        "type": "debug",
+        "z": "7af0a913d5500150",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ffedc0cdbdd9063f",
+        "type": "inject",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "bd436b4185d0d264"
+            ]
+        ]
+    },
+    {
+        "id": "54b0b053de003a06",
+        "type": "http in",
+        "z": "7af0a913d5500150",
+        "name": "",
+        "url": "/getDadosCompletos",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "5742486f7aff351a"
+            ]
+        ]
+    },
+    {
+        "id": "5742486f7aff351a",
+        "type": "function",
+        "z": "7af0a913d5500150",
+        "name": "selectLeitura",
+        "func": "msg.topic = \"select * from leitura order by id desc\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 200,
+        "wires": [
+            [
+                "050fdbc422bf9f7a"
+            ]
+        ]
+    },
+    {
+        "id": "a01237eff393b183",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "sensor",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "e2240e421b689e36",
+        "type": "serial-port",
+        "name": "",
+        "serialport": "COM6",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "507f75435c6c69c5",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-node-mysql": "3.0.0",
+            "node-red-node-serialport": "2.0.3"
+        }
+    }
+]
