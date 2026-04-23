@@ -1,5 +1,7 @@
 const URL = 'http://10.110.12.10:1880/getDadosCompletos';
 
+let dados = [];
+
 let paginaAtual = 1;
 const limite = 20;
 
@@ -8,8 +10,10 @@ async function carregarDados() {
         const response = await fetch(URL);
         const data = await response.json();
 
-        preencherTabela(data);
-        atualizarGrafico(data);
+        dados = data;
+
+        preencherTabela(dados);
+        atualizarGrafico(dados);
 
     } catch (erro) {
         console.error(erro);
@@ -40,14 +44,18 @@ function preencherTabela(data) {
 }
 
 function avancar() {
-    paginaAtual++;
-    carregarDados();
+    const totalPaginas = Math.ceil(dados.length / limite);
+    
+    if (paginaAtual < totalPaginas) {
+        paginaAtual++;
+        preencherTabela(dados);
+    }
 }
 
 function voltar() {
     if (paginaAtual > 1) {
         paginaAtual--;
-        carregarDados();
+        preencherTabela(dados);
     }
 }
 
@@ -77,12 +85,14 @@ function atualizarGrafico(data) {
                 label: "Temperatura",
                 data: temperaturas,
                 borderColor: "#FF5A5F",
-                tension: 0.3
+                tension: 0.3,
+                pointRadius: 0
             }, {
                 label: "Umidade",
                 data: umidades,
                 borderColor: "#4DA3FF",
-                tension: 0.3
+                tension: 0.3,
+                pointRadius: 0
             }]
         }
     });

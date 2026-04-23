@@ -32,21 +32,23 @@
                 <tbody id="tabela-body"></tbody>
             </table>
 
-            <div>
-                <button onclick="voltar()">Anterior</button>
+            <div class="btns">
+                <button class="btn" onclick="voltar()">Anterior</button>
                 <span id="pagina-info"></span>
-                <button onclick="avancar()">Próximo</button>
+                <button class="btn" onclick="avancar()">Próximo</button>
             </div>
         </section>
 
         <section class="card">
-            <div class="grafico-box">
+            <div class="grafico-box-info">
                 <h2 class="titulo-card"></h2>
                 <canvas id="grafico"></canvas>
             </div>
         </section>
 
     </main>
+
+    <a class="btn-fixo" href="index.html">Voltar</a>
 
     <footer class="footer">
         <p>&copy; 2026 - Sensor DHT11</p>

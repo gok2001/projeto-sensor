@@ -97,7 +97,8 @@ function atualizarGraficoTemp(data) {
                 label: "Temperatura",
                 data: valores,
                 borderColor: "#FF5A5F",
-                tension: 0.3
+                tension: 0.3,
+                pointRadius: 0
             }]
         }
     });
@@ -125,7 +126,8 @@ function atualizarGraficoUmid(data) {
                 label: "Umidade",
                 data: valores,
                 borderColor: "#4DA3FF",
-                tension: 0.3
+                tension: 0.3,
+                pointRadius: 0
             }]
         }
     });
