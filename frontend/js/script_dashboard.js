@@ -1,6 +1,6 @@
 const URL = 'http://10.110.12.10:1880/getLeituraUltimosDez';
 
-let chartTemp, chartUmid;
+let chartTemp, chart;
 
 async function carregarDados() {
     try {
@@ -110,14 +110,14 @@ function atualizarGraficoUmid(data) {
     const valores = data.map(d => d.umidade).reverse();
     const labels = data.map(d => formatarDataHora(d.datahora)).reverse();
 
-    if (chartUmid) {
-        chartUmid.data.labels = labels;
-        chartUmid.data.datasets[0].data = valores;
-        chartUmid.update();
+    if (chart) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = valores;
+        chart.update();
         return;
     }
 
-    chartUmid = new Chart(ctx, {
+    chart = new Chart(ctx, {
         type: "line",
         data: {
             labels,
@@ -132,4 +132,4 @@ function atualizarGraficoUmid(data) {
 }
 
 carregarDados();
-setInterval(carregarDados, 2000);
+setInterval(carregarDados, 30000);

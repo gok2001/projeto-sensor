@@ -1,7 +1,7 @@
 const URL = 'http://10.110.12.10:1880/getDadosCompletos';
 
 let paginaAtual = 1;
-const limite = 10;
+const limite = 20;
 
 async function carregarDados() {
     try {
@@ -9,9 +9,10 @@ async function carregarDados() {
         const data = await response.json();
 
         preencherTabela(data);
+        atualizarGrafico(data);
 
     } catch (erro) {
-        console.error(erro)
+        console.error(erro);
     }
 }
 
@@ -19,14 +20,18 @@ function preencherTabela(data) {
     const tbody = document.getElementById("tabela-body");
     tbody.innerHTML = "";
 
-    data.forEach(item => {
+    data.forEach((item, index) => {
         const tr = document.createElement("tr");
         
+        if (index === limite) {
+            return;
+        }
+
         tr.innerHTML = `
             <td>${item.id}</td>
             <td>${item.temperatura}</td>
             <td>${item.umidade}</td>
-            <td>${item.datahora}</td>
+            <td>${formatarDataHora(item.datahora)}</td>
         `;
 
         tbody.appendChild(tr);
@@ -45,5 +50,42 @@ function voltar() {
     }
 }
 
+function formatarDataHora(datahora) {
+    return new Date(datahora).toLocaleString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    });
+}
+
+function atualizarGrafico(data) {
+    const ctx = document.getElementById("grafico");
+
+    const temperaturas = data.map(d => d.temperatura).reverse();
+    const umidades = data.map(d => d.umidade).reverse();
+    const labels = data.map(d => formatarDataHora(d.datahora)).reverse();
+
+    chart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels,
+            datasets: [{
+                label: "Temperatura",
+                data: temperaturas,
+                borderColor: "#FF5A5F",
+                tension: 0.3
+            }, {
+                label: "Umidade",
+                data: umidades,
+                borderColor: "#4DA3FF",
+                tension: 0.3
+            }]
+        }
+    });
+}
+
 carregarDados();
-setInterval(carregarDados, 2000);
+setInterval(carregarDados, 30000);
