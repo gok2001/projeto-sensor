@@ -20,6 +20,19 @@
     <main class="container">
 
         <section class="card">
+            <div class="filtros">
+                <div class="campo">
+                    <label for="data-inicio">Data Início</label>
+                    <input type="datetime-local" id="data-inicio">
+                </div>
+                <div class="campo">
+                    <label for="data-fim">Data Fim</label>
+                    <input type="datetime-local" id="data-fim">
+                </div>
+                <button class="btn" onclick="aplicarFiltro()" type="button">Filtrar</button>
+                <button class="btn" onclick="limparFiltro()" type="button">Limpar</button>
+            </div>
+
             <table id="tabela-completa">
                 <thead>
                     <tr>

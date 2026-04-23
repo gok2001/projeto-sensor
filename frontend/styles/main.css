@@ -160,6 +160,42 @@ th, td {
     transition: transform 0.3s ease;
 }
 
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.campo label {
+    margin-bottom: 5px;
+}
+
+.campo input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #2a2a3d;
+    color: #fff;
+    outline: none;
+    transition: 0.2s;
+}
+
+.campo input:focus {
+    border-color: #4da3ff;
+    box-shadow: 0 0 5px rgba(77, 163, 255, 0.5);
+}
+
 .btn-fixo:hover {
     transform: translateY(-2px);
 }

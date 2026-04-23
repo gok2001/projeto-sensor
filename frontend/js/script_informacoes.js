@@ -1,6 +1,9 @@
 const URL = 'http://10.110.12.10:1880/getDadosCompletos';
 
 let dados = [];
+let dadosFiltrados = [];
+
+let chart;
 
 let paginaAtual = 1;
 const limite = 20;
@@ -18,6 +21,33 @@ async function carregarDados() {
     } catch (erro) {
         console.error(erro);
     }
+}
+
+function aplicarFiltro() {
+    const inicio = document.getElementById("data-inicio").value;
+    const fim = document.getElementById("data-fim").value;
+
+    const dataInicio = inicio ? new Date(inicio) : null;
+    const dataFim = fim ? new Date(fim) : null;
+
+    dadosFiltrados = dados.filter(item => {
+        const dataItem = new Date(item.datahora);
+
+        return (!dataInicio || dataItem >= dataInicio) && (!dataFim || dataItem <= dataFim);
+    });
+
+    paginaAtual = 1;
+
+    preencherTabela(dadosFiltrados);
+    atualizarGrafico(dadosFiltrados);
+}
+
+function limparFiltro() {
+    dadosFiltrados = [];
+    paginaAtual = 1;
+
+    preencherTabela(dados);
+    atualizarGrafico(dados);
 }
 
 function preencherTabela(data) {
@@ -44,18 +74,22 @@ function preencherTabela(data) {
 }
 
 function avancar() {
-    const totalPaginas = Math.ceil(dados.length / limite);
+    const base = dadosFiltrados.length ? dadosFiltrados : dados;
+
+    const totalPaginas = Math.ceil(base.length / limite);
     
     if (paginaAtual < totalPaginas) {
         paginaAtual++;
-        preencherTabela(dados);
+        preencherTabela(base);
     }
 }
 
 function voltar() {
+    const base = dadosFiltrados.length ? dadosFiltrados : dados;
+
     if (paginaAtual > 1) {
         paginaAtual--;
-        preencherTabela(dados);
+        preencherTabela(base);
     }
 }
 
@@ -76,6 +110,13 @@ function atualizarGrafico(data) {
     const temperaturas = data.map(d => d.temperatura).reverse();
     const umidades = data.map(d => d.umidade).reverse();
     const labels = data.map(d => formatarDataHora(d.datahora)).reverse();
+
+    if (chart) {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = temperaturas;
+        chart.data.datasets[1].data = umidades;
+        chart.update();
+    }
 
     chart = new Chart(ctx, {
         type: "line",
