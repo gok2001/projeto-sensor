@@ -39,28 +39,9 @@ body {
 
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 20px;
-}
-
-.login-link {
-    text-decoration: none;
-    color: var(--cor-texto);
-}
-
-.login-link:hover {
-    text-decoration: underline;
-}
-
-.login-icon {
-    background-image: url(../../assets/login-icon.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    
-    height: 35px;
-    width: 35px;
 }
 
 .titulo-card {
@@ -164,7 +145,8 @@ th, td {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: flex-end;  
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;

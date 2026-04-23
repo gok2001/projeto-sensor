@@ -140,4 +140,3 @@ function atualizarGrafico(data) {
 }
 
 carregarDados();
-setInterval(carregarDados, 30000);
